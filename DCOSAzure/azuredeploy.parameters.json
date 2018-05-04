@@ -1,0 +1,128 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters":
+  {
+    "location":
+    {
+      "value": "eastus2"
+    },
+
+    "DCOSPublicAgentVMSize":
+    {
+      "value": "Standard_D2s_v3"
+    },
+    "DCOSPrivateAgentVMSize":
+    {
+      "value": "Standard_D2s_v3"
+    },
+    "DCOSMasterVMSize":
+    {
+      "value": "Standard_D2s_v3"
+    },
+    "DCOSBootstrapVMSize":
+    {
+      "value": "Standard_D2s_v3"
+    },
+    "adminUsername":
+    {
+      "value": "x-admin"
+    },
+      
+    "adminPublicKey":
+    {
+      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAlGeQ/PgfTsUN5m7vLl7bIcQnpMHZnGEYd26PP+9xBaJvJLprUgi0jd00uRbMeisllDSrP6kh3XU58BYq61Pu+TgH9aglwKNB52EMqXAmtFJ39oq53C6ChwUv4Lj6TQoDWC2X6Rb7Pcxs9hdqCBCjYH8q7eixl1tZ6fFTZgHG2GRnKE5voCnu9yhJisUKqyHwgaolmIfkJnjzVbNPBGahw78RTsIau6uYilG7V/ZdGZgMOBdqgG8Kq+cFhRkhe35kiG0j4oQymXRa79vAspENlbqOq09/s1VmusfWKmj6qz125KdMBQhc84aYwbCRF+VCddtSznfMvl7sz2WeFSxW4w=="
+    },
+    "availabilitySetMasterName":
+    {
+      "value": "DCOSMasterAS"
+    },
+    "availabilitySetPublicAgentName":
+    {
+      "value": "DCOSPublicAgentAS"
+    },
+    "storageSKUType":
+    {
+      "value": "Premium_LRS"
+    },
+    
+    "publicIpAddressType":
+    {
+      "value": "Dynamic"
+    },
+    "publicIpAddressSku":
+    {
+      "value": "Basic"
+    },
+    "DCOSMasterPrefix":
+    {
+      "value": "DCOSMaster"
+    },
+    "DCOSMasterCount":
+    {
+      "value": 1
+    },
+    "availabilitySetPlatformFaultDomainCount":
+    {
+      "value": "3"
+    },
+    "availabilitySetPlatformUpdateDomainCount":
+    {
+      "value": "5"
+    },
+    "DCOSMasterDataDiskCount": {
+      "value": 1
+    },
+    "DCOSPublicAgentPrefix": {
+      "value": "DCOSPublicAgent"
+    },
+    "DCOSPublicAgentCount": {
+      "value": 1
+    },
+    "DCOSPublicAgentDataDiskCount": {
+      "value": 1
+    },
+    "availabilitySetPrivateAgentName":
+    {
+      "value": "DCOSPrivateAS"
+    },
+    "DCOSBootStrapServerName": {
+      "value": "DCOSBootStrap"
+    },
+    "DCOSPrivateAgentPrefix": {
+      "value": "DCOSPrivateAgent"
+    },
+    "DCOSPrivateAgentCount": {
+      "value": 2
+    },
+    "DCOSPrivateAgentDataDiskCount": {
+      "value": 1
+    },
+    "existingVnetName":
+    {
+      "value": "AzureEUS2VNET1"
+    },
+    "existingVnetResourceGroupName": {
+      "value": "AzureHubVNET"
+    },
+    "existingMasterSubnetName": {
+      "value": "master"
+    },
+    "existingPublicSubnetName": {
+      "value": "public"
+    },
+    "existingPrivateSubnetName": {
+      "value": "private"
+    },
+    "DCOSMasterOSDiskSizeGB": {
+      "value": "128"
+    },
+    "DCOSPublicOSDiskSizeGB": {
+      "value": "128"
+    },
+    "DCOSPrivateOSDiskSizeGB": {
+      "value": "128"
+    }
+    
+  }
+}

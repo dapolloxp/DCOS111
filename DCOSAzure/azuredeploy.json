@@ -1,0 +1,1124 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters":
+  {
+    "location":
+    {
+      "type": "string"
+    },
+    "DCOSMasterPrefix":
+    {
+      "type": "string"
+    },
+    "DCOSMasterOSDiskSizeGB":
+    {
+      "type": "string"
+    },
+    "DCOSMasterCount":
+    {
+      "type": "int",
+      "allowedValues":
+      [
+        1,
+        3,
+        5
+
+      ]
+    },
+    "DCOSMasterDataDiskCount":
+    {
+      "type": "int"
+    },
+
+    "DCOSPublicAgentPrefix":
+    {
+      "type": "string"
+    },
+    "DCOSPublicAgentCount":
+    {
+      "type": "int"
+    },
+    "DCOSPublicOSDiskSizeGB":
+    {
+      "type": "string"
+    },
+    "DCOSPublicAgentDataDiskCount":
+    {
+      "type": "int"
+    },
+    "DCOSPrivateAgentPrefix":
+    {
+      "type": "string"
+    },
+    "DCOSPrivateAgentCount":
+    {
+      "type": "int"
+    },
+    "DCOSPrivateOSDiskSizeGB":
+    {
+      "type": "string"
+    },
+    "DCOSPrivateAgentDataDiskCount":
+    {
+      "type": "int"
+    },
+    "storageSKUType":
+    {
+      "type": "string",
+      "allowedValues":
+      [
+        "Premium_LRS",
+        "Standard_LRS"
+      ]
+    },
+    "DCOSBootstrapVMSize":
+    {
+      "type": "string",
+      "allowedValues":
+      [
+        "Standard_D2s_v3",
+        "Standard_D4s_v3",
+        "Standard_D8s_v3",
+        "Standard_D16s_v3",
+        "Standard_D32s_v3",
+        "Standard_D64s_v3"
+      ]
+    },
+    "DCOSMasterVMSize":
+    {
+      "type": "string",
+      "allowedValues":
+      [
+        "Standard_D2s_v3",
+        "Standard_D4s_v3",
+        "Standard_D8s_v3",
+        "Standard_D16s_v3",
+        "Standard_D32s_v3",
+        "Standard_D64s_v3",
+        "Standard_E2s_v3",
+        "Standard_E4s_v3",
+        "Standard_E8s_v3",
+        "Standard_E16s_v3",
+        "Standard_E32-8s_v3",
+        "Standard_E32-16s_v3",
+        "Standard_E32s_v3",
+        "Standard_E64-16s_v3",
+        "Standard_E64-32s_v3",
+        "Standard_E64s_v3",
+        "Standard_F2s_v2",
+        "Standard_F4s_v2",
+        "Standard_F8s_v2",
+        "Standard_F16s_v2"
+
+      ]
+    },
+    "DCOSPublicAgentVMSize":
+    {
+      "type": "string",
+      "allowedValues":
+      [
+        "Standard_D2s_v3",
+        "Standard_D4s_v3",
+        "Standard_D8s_v3",
+        "Standard_D16s_v3",
+        "Standard_D32s_v3",
+        "Standard_D64s_v3",
+        "Standard_E2s_v3",
+        "Standard_E4s_v3",
+        "Standard_E8s_v3",
+        "Standard_E16s_v3",
+        "Standard_E32-8s_v3",
+        "Standard_E32-16s_v3",
+        "Standard_E32s_v3",
+        "Standard_E64-16s_v3",
+        "Standard_E64-32s_v3",
+        "Standard_E64s_v3",
+        "Standard_F2s_v2",
+        "Standard_F4s_v2",
+        "Standard_F8s_v2",
+        "Standard_F16s_v2"
+
+      ]
+    },
+    "DCOSPrivateAgentVMSize":
+    {
+      "type": "string",
+      "allowedValues":
+      [
+        "Standard_D2s_v3",
+        "Standard_D4s_v3",
+        "Standard_D8s_v3",
+        "Standard_D16s_v3",
+        "Standard_D32s_v3",
+        "Standard_D64s_v3",
+        "Standard_E2s_v3",
+        "Standard_E4s_v3",
+        "Standard_E8s_v3",
+        "Standard_E16s_v3",
+        "Standard_E32-8s_v3",
+        "Standard_E32-16s_v3",
+        "Standard_E32s_v3",
+        "Standard_E64-16s_v3",
+        "Standard_E64-32s_v3",
+        "Standard_E64s_v3",
+        "Standard_F2s_v2",
+        "Standard_F4s_v2",
+        "Standard_F8s_v2",
+        "Standard_F16s_v2"
+
+      ]
+    },
+    "adminUsername":
+    {
+      "type": "string"
+    },
+    "adminPublicKey":
+    {
+      "type": "string"
+    },
+    "availabilitySetMasterName":
+    {
+      "type": "string"
+    },
+    "availabilitySetPublicAgentName":
+    {
+      "type": "string"
+    },
+    "availabilitySetPrivateAgentName":
+    {
+      "type": "string"
+    },
+    "availabilitySetPlatformFaultDomainCount":
+    {
+      "type": "string"
+    },
+    "availabilitySetPlatformUpdateDomainCount":
+    {
+      "type": "string"
+    },
+    "publicIpAddressType":
+    {
+      "type": "string"
+    },
+    "publicIpAddressSku":
+    {
+      "type": "string"
+    },
+    "DCOSBootStrapServerName":
+    {
+      "type": "string",
+      "minLength": 1
+    },
+    "DCOSBootstrapDataDiskCount":
+    {
+      "type": "int",
+      "defaultValue": 1
+    },
+    "existingVnetName":
+    {
+      "type": "string",
+      "metadata":
+      {
+        "description": "Name of the existing virtual network to deploy DC/OS into."
+      }
+    },
+    "existingVnetResourceGroupName":
+    {
+      "type": "string",
+      "metadata":
+      {
+        "description": "Name of the existing resource group where the VNET resides"
+      }
+    },
+    "existingMasterSubnetName":
+    {
+      "type": "string",
+      "metadata":
+      {
+        "description": "Name of the existing subnet to deploy the masters into."
+      }
+    },
+    "existingPublicSubnetName":
+    {
+      "type": "string",
+      "metadata":
+      {
+        "description": "Name of the existing subnet to deploy the public agents into."
+      }
+    },
+    "existingPrivateSubnetName":
+    {
+      "type": "string",
+      "metadata":
+      {
+        "description": "Name of the existing subnet to deploy the private into."
+      }
+    }
+  },
+  "variables":
+  {
+    "vnetId": "[resourceId(parameters('existingVnetResourceGroupName'),'Microsoft.Network/virtualNetworks', parameters('existingVnetName'))]",
+    "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('existingMasterSubnetName'))]",
+    "subnetRef2": "[concat(variables('vnetId'), '/subnets/', parameters('existingPublicSubnetName'))]",
+    "subnetRef3": "[concat(variables('vnetId'), '/subnets/', parameters('existingPrivateSubnetName'))]",
+    "availabilitySetPlatformFaultDomainCount": "3",
+    "availabilitySetPlatformUpdateDomainCount": "5",
+    "sizeOfDataDisksInGB": 128,
+    "diskCaching": "ReadWrite",
+    "privateIPAllocationMethod": "Dynamic",
+    "DCOSBootStrapServerVnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('existingVnetName'))]",
+    "publisher": "Openlogic",
+    "offer": "Centos",
+    "sku": "7.4",
+    "DCOSMasterLBName": "[concat(parameters('DCOSMasterPrefix'), '-LB')]",
+    "lbID": "[resourceId('Microsoft.Network/loadBalancers', variables('DCOSMasterLBName'))]",
+    "DCOSPublicLBName": "[concat(parameters('DCOSPublicAgentPrefix'), '-LB')]",
+    "lbID2": "[resourceId('Microsoft.Network/loadBalancers', variables('DCOSPublicLBName'))]"
+
+
+
+  },
+  "resources":
+  [
+
+    {
+      "name": "[concat(parameters('DCOSMasterPrefix'), 'MS', copyIndex())]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2016-04-30-preview",
+      "location": "[parameters('location')]",
+      "copy":
+      {
+        "name": "DCOSmastercopy",
+        "count": "[parameters('DCOSMasterCount')]"
+      },
+      "dependsOn":
+      [
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('DCOSMasterPrefix'), 'nic', copyIndex())]",
+        "[concat('Microsoft.Compute/availabilitySets/', parameters('availabilitySetMasterName'))]",
+        "[concat(parameters('DCOSMasterPrefix'), '-LB')]"
+      ],
+      "properties":
+      {
+        "osProfile":
+        {
+          "computerName": "[concat(parameters('DCOSMasterPrefix'), 'Master', copyIndex())]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "linuxConfiguration":
+          {
+            "disablePasswordAuthentication": "true",
+            "ssh":
+            {
+              "publicKeys":
+              [
+                {
+                  "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                  "keyData": "[parameters('adminPublicKey')]"
+                }
+              ]
+            }
+          }
+        },
+        "hardwareProfile":
+        {
+          "vmSize": "[parameters('DCOSMasterVMSize')]"
+        },
+        "storageProfile":
+        {
+          "imageReference":
+          {
+            "publisher": "[variables('publisher')]",
+            "offer": "[variables('offer')]",
+            "sku": "[variables('sku')]",
+            "version": "latest"
+          },
+          "osdisk":
+          {
+            "name": "[concat(parameters('DCOSMasterPrefix'), 'MS', copyindex(), '-osdisk')]",
+            "createOption": "fromImage",
+            "diskSizeGB": "[parameters('DCOSMasterOSDiskSizeGB')]",
+            "managedDisk":
+            {
+              "storageAccountType": "[parameters('storageSKUType')]"
+            }
+          },
+          "copy":
+          [
+            {
+              "name": "dataDisks",
+              "count": "[parameters('DCOSMasterDataDiskCount')]",
+              "input":
+              {
+                "caching": "[variables('diskCaching')]",
+                "diskSizeGB": "[variables('sizeOfDataDisksInGB')]",
+                "lun": "[copyIndex('dataDisks')]",
+                "name": "[concat(parameters('DCOSMasterPrefix'), 'MS', copyindex(), '-datadisk', copyIndex('dataDisks'))]",
+                "createOption": "Empty"
+              }
+            }
+          ]
+        },
+        "networkProfile":
+        {
+          "networkInterfaces":
+          [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('DCOSMasterPrefix'), 'nic', copyIndex()))]"
+            }
+          ]
+        },
+        "availabilitySet":
+        {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySetMasterName'))]"
+        }
+      },
+      "resources": [
+        {
+          "name": "dcos-masterprereq",
+          "type": "extensions",
+          "location": "[parameters('location')]",
+          "apiVersion": "2016-03-30",
+          "dependsOn": [
+            "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('DCOSMasterPrefix'), 'MS', copyIndex()))]"
+          ],
+          "tags": {
+            "displayName": "dcos-masterprereq"
+          },
+          "properties":
+          {
+            "publisher": "Microsoft.OSTCExtensions",
+            "type": "CustomScriptForLinux",
+            "typeHandlerVersion": "1.4",
+            "autoUpgradeMinorVersion": true,
+            "settings":
+            {
+              "fileUris":
+              [
+                "https://raw.githubusercontent.com/dapolloxp/dcosscripts/master/install-prereqs-dcos.sh"
+              ],
+              "commandToExecute": "sh install-prereqs-dcos.sh"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "[parameters('availabilitySetMasterName')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "apiVersion": "2016-04-30-preview",
+      "location": "[parameters('location')]",
+      "properties":
+      {
+        "platformFaultDomainCount": "[parameters('availabilitySetPlatformFaultDomainCount')]",
+        "platformUpdateDomainCount": "[parameters('availabilitySetPlatformUpdateDomainCount')]",
+        "managed": true
+      }
+    },
+    {
+      "name": "[parameters('availabilitySetPublicAgentName')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "apiVersion": "2016-04-30-preview",
+      "location": "[parameters('location')]",
+      "properties":
+      {
+        "platformFaultDomainCount": "[parameters('availabilitySetPlatformFaultDomainCount')]",
+        "platformUpdateDomainCount": "[parameters('availabilitySetPlatformUpdateDomainCount')]",
+        "managed": true
+      }
+    },
+    {
+      "name": "[parameters('availabilitySetPrivateAgentName')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "apiVersion": "2016-04-30-preview",
+      "location": "[parameters('location')]",
+      "properties":
+      {
+        "platformFaultDomainCount": "[parameters('availabilitySetPlatformFaultDomainCount')]",
+        "platformUpdateDomainCount": "[parameters('availabilitySetPlatformUpdateDomainCount')]",
+        "managed": true
+      }
+    },
+    {
+      "name": "[concat(parameters('DCOSPublicAgentPrefix'), 'MS', copyIndex())]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2016-04-30-preview",
+      "location": "[parameters('location')]",
+      "copy":
+      {
+        "name": "DCOSagentcopy",
+        "count": "[parameters('DCOSPublicAgentCount')]"
+      },
+      "dependsOn":
+      [
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('DCOSPublicAgentPrefix'), 'nic', copyIndex())]",
+        "[concat('Microsoft.Compute/availabilitySets/', parameters('availabilitySetPublicAgentName'))]"
+      ],
+      "properties":
+      {
+        "osProfile":
+        {
+          "computerName": "[concat(parameters('DCOSPublicAgentPrefix'), 'Agent', copyIndex())]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "linuxConfiguration":
+          {
+            "disablePasswordAuthentication": "true",
+            "ssh":
+            {
+              "publicKeys":
+              [
+                {
+                  "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                  "keyData": "[parameters('adminPublicKey')]"
+                }
+              ]
+            }
+          }
+        },
+        "hardwareProfile":
+        {
+          "vmSize": "[parameters('DCOSPublicAgentVMSize')]"
+        },
+        "storageProfile":
+        {
+          "imageReference":
+          {
+            "publisher": "[variables('publisher')]",
+            "offer": "[variables('offer')]",
+            "sku": "[variables('sku')]",
+            "version": "latest"
+          },
+          "osdisk":
+          {
+            "name": "[concat(parameters('DCOSPublicAgentPrefix'), 'MS', copyindex(), '-osdisk')]",
+            "createOption": "fromImage",
+            "diskSizeGB": "[parameters('DCOSPublicOSDiskSizeGB')]",
+            "managedDisk":
+            {
+              "storageAccountType": "[parameters('storageSKUType')]"
+            }
+          },
+          "copy":
+          [
+            {
+              "name": "dataDisks",
+              "count": "[parameters('DCOSPublicAgentDataDiskCount')]",
+              "input":
+              {
+                "caching": "[variables('diskCaching')]",
+                "diskSizeGB": "[variables('sizeOfDataDisksInGB')]",
+                "lun": "[copyIndex('dataDisks')]",
+                "name": "[concat(parameters('DCOSPublicAgentPrefix'), 'MS', copyindex(), '-datadisk', copyIndex('dataDisks'))]",
+                "createOption": "Empty"
+              }
+            }
+          ]
+        },
+        "networkProfile":
+        {
+          "networkInterfaces":
+          [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('DCOSPublicAgentPrefix'), 'nic', copyIndex()))]"
+            }
+          ]
+        },
+        "availabilitySet":
+        {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySetPublicAgentName'))]"
+        }
+      },
+      "resources": [
+        {
+          "name": "dcos-publicagentprereq",
+          "type": "extensions",
+          "location": "[parameters('location')]",
+          "apiVersion": "2016-03-30",
+          "dependsOn": [
+            "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('DCOSPublicAgentPrefix'), 'MS', copyIndex()))]"
+          ],
+          "tags":
+          {
+            "displayName": "dcos-publicagentprereq"
+          },
+          "properties":
+          {
+            "publisher": "Microsoft.OSTCExtensions",
+            "type": "CustomScriptForLinux",
+            "typeHandlerVersion": "1.4",
+            "autoUpgradeMinorVersion": true,
+            "settings":
+            {
+              "fileUris":
+              [
+                "https://raw.githubusercontent.com/dapolloxp/dcosscripts/master/install-prereqs-dcos.sh"
+              ],
+              "commandToExecute": "sh install-prereqs-dcos.sh"
+            }
+          }
+        }
+      ]
+    },
+    
+    {
+      "name": "[concat(parameters('DCOSPrivateAgentPrefix'), 'MS', copyIndex())]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2016-04-30-preview",
+      "location": "[parameters('location')]",
+      "copy":
+      {
+        "name": "DCOSPrivateagentcopy",
+        "count": "[parameters('DCOSPrivateAgentCount')]"
+      },
+      "dependsOn":
+      [
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('DCOSPrivateAgentPrefix'), 'nic', copyIndex())]",
+        "[concat('Microsoft.Compute/availabilitySets/', parameters('availabilitySetPrivateAgentName'))]"
+      ],
+      "properties":
+      {
+        "osProfile":
+        {
+          "computerName": "[concat(parameters('DCOSPrivateAgentPrefix'), 'Agent', copyIndex())]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "linuxConfiguration":
+          {
+            "disablePasswordAuthentication": "true",
+            "ssh":
+            {
+              "publicKeys":
+              [
+                {
+                  "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                  "keyData": "[parameters('adminPublicKey')]"
+                }
+              ]
+            }
+          }
+        },
+        "hardwareProfile":
+        {
+          "vmSize": "[parameters('DCOSPrivateAgentVMSize')]"
+        },
+        "storageProfile":
+        {
+          "imageReference":
+          {
+            "publisher": "[variables('publisher')]",
+            "offer": "[variables('offer')]",
+            "sku": "[variables('sku')]",
+            "version": "latest"
+          },
+          "osdisk":
+          {
+            "name": "[concat(parameters('DCOSPrivateAgentPrefix'), 'MS', copyindex(), '-osdisk')]",
+            "createOption": "fromImage",
+            "diskSizeGB": "[parameters('DCOSPrivateOSDiskSizeGB')]",
+            "managedDisk":
+            {
+              "storageAccountType": "[parameters('storageSKUType')]"
+            }
+          },
+          "copy":
+          [
+            {
+              "name": "dataDisks",
+              "count": "[parameters('DCOSPrivateAgentDataDiskCount')]",
+              "input":
+              {
+                "caching": "[variables('diskCaching')]",
+                "diskSizeGB": "[variables('sizeOfDataDisksInGB')]",
+                "lun": "[copyIndex('dataDisks')]",
+                "name": "[concat(parameters('DCOSPrivateAgentPrefix'), 'MS', copyindex(), '-datadisk', copyIndex('dataDisks'))]",
+                "createOption": "Empty"
+              }
+            }
+          ]
+        },
+        "networkProfile":
+        {
+          "networkInterfaces":
+          [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('DCOSPrivateAgentPrefix'), 'nic', copyIndex()))]"
+            }
+          ]
+        },
+        "availabilitySet":
+        {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySetPrivateAgentName'))]"
+        }
+      },
+      "resources": [
+        {
+          "name": "dcos-privateagentprereq",
+          "type": "extensions",
+          "location": "[parameters('location')]",
+          "apiVersion": "2016-03-30",
+          "dependsOn": [
+            "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('DCOSPrivateAgentPrefix'), 'MS', copyIndex()))]"
+          ],
+          "tags": {
+            "displayName": "dcos-privateagentprereq"
+          },
+          "properties":
+          {
+            "publisher": "Microsoft.OSTCExtensions",
+            "type": "CustomScriptForLinux",
+            "typeHandlerVersion": "1.4",
+            "autoUpgradeMinorVersion": true,
+            "settings":
+            {
+              "fileUris":
+              [
+                "https://raw.githubusercontent.com/dapolloxp/dcosscripts/master/install-prereqs-dcos.sh"
+              ],
+              "commandToExecute": "sh install-prereqs-dcos.sh"
+            }
+          }
+        }
+      ]
+    },
+
+    //
+
+    {
+      "apiVersion": "2017-08-01",
+      "name": "[concat(parameters('DCOSMasterPrefix'), '-LB')]",
+      "type": "Microsoft.Network/loadBalancers",
+      "location": "[parameters('location')]",
+      "dependsOn":
+      [
+        
+      ],
+      "properties":
+      {
+        "frontendIPConfigurations":
+        [
+          {
+            "name": "DCOSMasterLB",
+            "properties":
+            {
+              "privateIPAllocationMethod": "[variables('privateIPAllocationMethod')]",
+              "subnet":
+              {
+                "id": "[variables('subnetRef')]"
+              }
+            }
+          }
+        ],
+
+        "backendAddressPools":
+        [
+          {
+            "name": "LoadBalancerBackend"
+          }
+        ],
+        "loadbalancingRules":
+        [
+          {
+            "name": "port80",
+            "properties":
+            {
+              "frontendIPConfiguration":
+              {
+
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('DCOSMasterLBName')), '/frontendIpConfigurations/DCOSMasterLB')]"
+              },
+              "backendaddressPool":
+              {
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('DCOSMasterLBName')), '/backendAddressPools/LoadBalancerBackend')]"
+                
+              },
+              "protocol": "tcp",
+              "frontendPort": 80,
+              "backendPort": 80,
+              "probe":
+              {
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('DCOSMasterLBName')), '/probes/tcpProbe')]"
+              }
+            }
+          }
+        ],
+        "probes":
+        [
+          {
+            "name": "tcpProbe",
+            "properties":
+            {
+              "protocol": "tcp",
+              "port": 80,
+              "intervalInSeconds": "5",
+              "numberOfProbes": "2"
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "apiVersion": "2017-08-01",
+      "name": "[concat(parameters('DCOSPublicAgentPrefix'), '-LB')]",
+      "type": "Microsoft.Network/loadBalancers",
+      "location": "[parameters('location')]",
+      "dependsOn":
+      [
+        
+      ],
+      "properties":
+      {
+        "frontendIPConfigurations":
+        [
+          {
+            "name": "DCOSPublicAgentLB",
+            "properties":
+            {
+              "privateIPAllocationMethod": "[variables('privateIPAllocationMethod')]",
+              "subnet":
+              {
+                "id": "[variables('subnetRef2')]"
+              }
+            }
+          }
+        ],
+
+        "backendAddressPools":
+        [
+          {
+            "name": "LoadBalancerBackend"
+          }
+        ],
+        "loadbalancingRules":
+        [
+          {
+            "name": "port80",
+            "properties":
+            {
+              "frontendIPConfiguration":
+              {
+
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('DCOSPublicLBName')), '/frontendIpConfigurations/DCOSPublicAgentLB')]"
+              },
+              "backendaddressPool":
+              {
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('DCOSPublicLBName')), '/backendAddressPools/LoadBalancerBackend')]"
+
+              },
+              "protocol": "tcp",
+              "frontendPort": 80,
+              "backendPort": 80,
+              "probe":
+              {
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('DCOSPublicLBName')), '/probes/tcpProbe')]"
+              }
+            }
+          }
+        ],
+        "probes":
+        [
+          {
+            "name": "tcpProbe",
+            "properties":
+            {
+              "protocol": "tcp",
+              "port": 80,
+              "intervalInSeconds": "5",
+              "numberOfProbes": "2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[concat(parameters('DCOSMasterPrefix'), 'nic', copyIndex())]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2017-10-01",
+      "location": "[parameters('location')]",
+      "dependsOn":
+      [
+        
+        "[concat(parameters('DCOSMasterPrefix'), '-LB')]"
+
+
+      ],
+      "copy":
+      {
+        "name": "DCOSMasterNICCopy",
+        "count": "[parameters('DCOSMasterCount')]"
+      },
+      "properties":
+      {
+        "ipConfigurations":
+        [
+          {
+            "name": "ipconfig1",
+            "properties":
+            {
+              "subnet":
+              {
+                "id": "[variables('subnetRef')]"
+              },
+              "privateIPAllocationMethod": "Dynamic",
+              "loadBalancerBackendAddressPools":
+              [
+                {
+                  "id": "[concat(variables('lbID'), '/backendAddressPools/LoadBalancerBackend')]"
+                }
+              ]
+            }
+          }
+        ]
+
+      }
+    },
+    {
+      "name": "[concat(parameters('DCOSPublicAgentPrefix'), 'nic', copyIndex())]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2017-10-01",
+      "location": "[parameters('location')]",
+      "dependsOn":
+      [
+        
+        "[concat(parameters('DCOSPublicAgentPrefix'), '-LB')]"
+      ],
+      "copy":
+      {
+        "name": "DCOSPublicAgentNICCopy",
+        "count": "[parameters('DCOSPublicAgentCount')]"
+      },
+      "properties":
+      {
+        "ipConfigurations":
+        [
+          {
+            "name": "ipconfig1",
+            "properties":
+            {
+              "subnet":
+              {
+                "id": "[variables('subnetRef2')]"
+              },
+              "privateIPAllocationMethod": "Dynamic",
+              "loadBalancerBackendAddressPools":
+              [
+                {
+                  "id": "[concat(variables('lbID2'), '/backendAddressPools/LoadBalancerBackend')]"
+                }
+              ]
+
+            }
+          }
+        ]
+
+      }
+    },
+
+    {
+      "name": "[concat(parameters('DCOSPrivateAgentPrefix'), 'nic', copyIndex())]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2017-10-01",
+      "location": "[parameters('location')]",
+      "dependsOn":
+      [
+        
+      ],
+      "copy":
+      {
+        "name": "DCOSPrivateAgentNICCopy",
+        "count": "[parameters('DCOSPrivateAgentCount')]"
+      },
+      "properties":
+      {
+        "ipConfigurations":
+        [
+          {
+            "name": "ipconfig1",
+            "properties":
+            {
+              "subnet":
+              {
+                "id": "[variables('subnetRef3')]"
+              },
+              "privateIPAllocationMethod": "Dynamic"
+
+            }
+          }
+        ]
+
+      }
+    },
+
+    {
+      "name": "[parameters('DCOSBootStrapServerName')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2016-04-30-preview",
+      "location": "[parameters('location')]",
+
+      "dependsOn":
+      [
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('DCOSBootStrapServerName'), '-NIC')]"
+      ],
+      "properties":
+      {
+        "osProfile":
+        {
+          "computerName": "[parameters('DCOSBootStrapServerName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "linuxConfiguration":
+          {
+            "disablePasswordAuthentication": "true",
+            "ssh":
+            {
+              "publicKeys":
+              [
+                {
+                  "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                  "keyData": "[parameters('adminPublicKey')]"
+                }
+              ]
+            }
+          }
+        },
+        "hardwareProfile":
+        {
+          "vmSize": "[parameters('DCOSBootstrapVMSize')]"
+        },
+        "storageProfile":
+        {
+          "imageReference":
+          {
+            "publisher": "[variables('publisher')]",
+            "offer": "[variables('offer')]",
+            "sku": "[variables('sku')]",
+            "version": "latest"
+          },
+          "osdisk":
+          {
+            "name": "[concat(parameters('DCOSBootStrapServerName'),'-osdisk')]",
+            "createOption": "fromImage",
+            "diskSizeGB":  128,
+            "managedDisk":
+            {
+              "storageAccountType": "[parameters('storageSKUType')]"
+            }
+          },
+          "copy":
+          [
+            {
+              "name": "dataDisks",
+              "count": "[parameters('DCOSBootstrapDataDiskCount')]",
+              "input":
+              {
+                "caching": "[variables('diskCaching')]",
+                "diskSizeGB": "[variables('sizeOfDataDisksInGB')]",
+                "lun": "[copyIndex('dataDisks')]",
+                "name": "[concat(parameters('DCOSBootStrapServerName'), '-datadisk', copyIndex('dataDisks'))]",
+                "createOption": "Empty"
+              }
+            }
+          ]
+        },
+        "networkProfile":
+        {
+          "networkInterfaces":
+          [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('DCOSBootStrapServerName'), '-NIC'))]"
+            }
+          ]
+        }
+      },
+      "resources": [
+        {
+          "name": "dcos-bootstrapprereq",
+          "type": "extensions",
+          "location": "[parameters('location')]",
+          "apiVersion": "2016-03-30",
+          "dependsOn": [
+            "[resourceId('Microsoft.Compute/virtualMachines', parameters('DCOSBootStrapServerName'))]"
+          ],
+          "tags":
+          {
+            "displayName": "dcos-bootstrapprereq"
+          },
+          "properties": {
+            "publisher": "Microsoft.OSTCExtensions",
+            "type": "CustomScriptForLinux",
+            "typeHandlerVersion": "1.4",
+            "autoUpgradeMinorVersion": true,
+            "settings":
+            {
+              "fileUris":
+              [
+                "https://raw.githubusercontent.com/dapolloxp/dcosscripts/master/install-prereqs-dcos.sh"
+              ],
+              "commandToExecute": "sh install-prereqs-dcos.sh"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "[concat(parameters('DCOSBootStrapServerName'), '-NIC')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[parameters('location')]",
+      "apiVersion": "2016-03-30",
+      "dependsOn":
+      [
+       
+        "[concat('Microsoft.Network/publicIpAddresses/', parameters('DCOSBootStrapServerName'), '-PIP')]"
+
+
+      ],
+      "properties":
+      {
+        "ipConfigurations":
+        [
+          {
+            "name": "ipconfig1",
+            "properties":
+            {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet":
+              {
+                "id": "[variables('SubnetRef')]"
+              },
+              "publicIPAddress":
+              {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('DCOSBootStrapServerName'), '-PIP'))]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[concat(parameters('DCOSBootStrapServerName'), '-PIP')]",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "location": "[parameters('location')]",
+      "apiVersion": "2016-03-30",
+      "dependsOn":
+      [
+      ],
+      "tags":
+      {
+        "displayName": "DCOSbootStrapServer-PIP"
+      },
+      "properties":
+      {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings":
+        {
+          "domainNameLabel": "[toLower(concat(parameters('DCOSBootStrapServerName'), 'dns'))]"
+        }
+      }
+    }
+  ],
+  "outputs":
+  {
+    "adminUsername":
+    {
+      "type": "string",
+      "value": "[parameters('adminUsername')]"
+    }
+  }
+}
