@@ -31,7 +31,7 @@
       
     "adminPublicKey":
     {
-      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAlGeQ/PgfTsUN5m7vLl7bIcQnpMHZnGEYd26PP+9xBaJvJLprUgi0jd00uRbMeisllDSrP6kh3XU58BYq61Pu+TgH9aglwKNB52EMqXAmtFJ39oq53C6ChwUv4Lj6TQoDWC2X6Rb7Pcxs9hdqCBCjYH8q7eixl1tZ6fFTZgHG2GRnKE5voCnu9yhJisUKqyHwgaolmIfkJnjzVbNPBGahw78RTsIau6uYilG7V/ZdGZgMOBdqgG8Kq+cFhRkhe35kiG0j4oQymXRa79vAspENlbqOq09/s1VmusfWKmj6qz125KdMBQhc84aYwbCRF+VCddtSznfMvl7sz2WeFSxW4w=="
+      "value": ""
     },
     "availabilitySetMasterName":
     {
